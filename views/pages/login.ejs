@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Recipe App</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7 col-sm-10">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 p-sm-5">
+            <div class="text-center mb-4">
+              <h2 class="mb-1">Welcome Back</h2>
+              <p class="text-muted small">Sign in to continue to Recipe App</p>
+            </div>
+
+            <!-- Error msg -->
+            <% if (error) { %>
+                <div class="alert alert-danger">
+                  <%= error %>
+                </div>
+              <% } %>
+            
+            <form action="/auth/login" method="POST">
+              <!-- Username -->
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required autofocus>
+              </div>
+              
+              <!-- Password -->
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="password" class="form-label">Password</label>
+                </div>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              
+              <!-- Submit Button -->
+              <div class="d-grid mb-4">
+                <button type="submit" class="btn btn-primary">Sign In</button>
+              </div>
+              
+              <!-- Create Account Link -->
+              <div class="text-center">
+                <p class="mb-0 small">Don't have an account? <a href="/auth/signup" class="text-decoration-none">Create Account</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

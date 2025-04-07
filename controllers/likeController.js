@@ -1,32 +1,32 @@
 const Recipe = require("../models/Recipe");
 
-// Like a recipe
 exports.likeRecipe = async (req, res) => {
     try {
-        const recipe = await Recipe.findById(req.params.id);
+        const userId = req.session.user.id;
+        const recipe = await Recipe.findById(req.params.recipeId);
         if (!recipe) return res.status(404).send("Recipe not found");
 
-        if (!recipe.likes.includes(req.user._id)) {
-            recipe.likes.push(req.user._id);
+        if (!recipe.likes.includes(userId)) {
+            recipe.likes.push(userId);
             await recipe.save();
         }
-        //TODO: Finish the PAGE
+        res.redirect("back");
     } catch (error) {
-        res.status(500).send("Error liking recipe");
+        res.status(500).send(`Error liking recipe ${error}`);
     }
 };
 
-// Unlike a recipe
 exports.unlikeRecipe = async (req, res) => {
     try {
-        const recipe = await Recipe.findById(req.params.id);
+        const userId = req.session.user.id;
+        const recipe = await Recipe.findById(req.params.recipeId);
         if (!recipe) return res.status(404).send("Recipe not found");
 
         recipe.likes = recipe.likes.filter(
-            (userId) => userId.toString() !== req.user._id.toString()
+            (_userId) => _userId.toString() !== userId
         );
         await recipe.save();
-        //TODO: Finish the PAGE
+        res.redirect("back");
     } catch (error) {
         res.status(500).send("Error unliking recipe");
     }

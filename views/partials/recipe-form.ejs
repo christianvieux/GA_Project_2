@@ -1,0 +1,134 @@
+<!-- partials/recipe-form.ejs -->
+
+<form class="bruh" action="<%= formAction %>" method="POST">
+  <!-- Title & Description -->
+  <div class="row mb-3">
+    <div class="col-md-7">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="<%= recipe.title || '' %>" required>
+    </div>
+    <div class="col-md-5">
+      <label for="category" class="form-label">Category</label>
+      <select class="form-select" id="category" name="category" required>
+        <option value="">Select a category</option>
+        <% ['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Snack', 'Other'].forEach(category => { %>
+        <option value="<%= category %>" <%= (recipe.category === category) ? 'selected' : '' %>><%= category %></option>
+        <% }) %>
+      </select>
+    </div>
+  </div>
+
+  <!-- Description & Cook Time -->
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="3" required><%= recipe.description || '' %></textarea>
+    </div>
+    <div class="col-md-4">
+      <label for="cook_time" class="form-label">Cook Time (minutes)</label>
+      <input type="number" class="form-control" id="cook_time" name="cook_time" value="<%= recipe.cook_time || '' %>">
+    </div>
+  </div>
+
+  <!-- Ingredients -->
+  <div class="mb-3">
+    <label for="ingredients" class="form-label">Ingredients</label>
+    <div id="ingredientsList">
+      <% const ingredientsArray = recipe.ingredients || [''] %>
+      <% ingredientsArray.forEach((ingredient, index) => { %>
+      <div class="input-group mb-2">
+        <input type="text" class="form-control ingredient-input" data-index="<%= index %>" value="<%= ingredient %>" required>
+        <% if (index > 0) { %>
+        <button type="button" class="btn btn-outline-danger remove-ingredient">Remove</button>
+        <% } %>
+      </div>
+      <% }) %>
+    </div>
+    <!-- Hidden input to store all ingredients as JSON -->
+    <input type="hidden" name="ingredientsJson" id="ingredientsJson" value="<%= JSON.stringify(ingredientsArray) %>">
+    
+    <button type="button" class="btn btn-sm btn-outline-secondary mt-2" id="addIngredient">
+      Add Ingredient
+    </button>
+  </div>
+
+  <!-- Instructions -->
+  <div class="mb-3">
+    <label for="instructions" class="form-label">Instructions</label>
+    <textarea class="form-control" id="instructions" name="instructions" rows="6" required><%= recipe.instructions || '' %></textarea>
+  </div>
+
+  <!-- Image URL -->
+  <div class="mb-4">
+    <label for="image" class="form-label">Recipe Image URL</label>
+    <% if (recipe.image) { %>
+    <div class="mb-2">
+      <img src="<%= recipe.image %>" alt="Current recipe image" class="img-thumbnail" style="max-height: 200px; object-fit: cover;">
+    </div>
+    <input type="url" class="form-control" id="image" name="image" value="<%= recipe.image %>">
+    <div class="form-text">Enter the URL of the image. Leave empty to keep the current image.</div>
+    <% } else { %>
+    <input type="url" class="form-control" id="image" name="image" placeholder="Enter image URL" required>
+    <% } %>
+  </div>
+
+  <!-- Submit Buttons -->
+  <div class="d-flex justify-content-between">
+    <input type="hidden" name="_method" value="PUT">
+    <a href="<%= recipe._id ? `/recipes/${recipe._id}` : '/recipes' %>" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+    <button type="submit" class="btn btn-primary rounded-pill px-4">Save Changes</button>
+  </div>
+</form>
+
+<script>
+ 
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+  // Get elements
+  const ingredientsList = document.getElementById('ingredientsList');
+  const ingredientsJson = document.getElementById('ingredientsJson');
+  const addIngredientBtn = document.getElementById('addIngredient');
+  
+  // Update hidden JSON input
+  function updateIngredientsJson() {
+    const inputs = document.querySelectorAll('.ingredient-input');
+    const ingredients = Array.from(inputs).map(input => input.value);
+    ingredientsJson.value = JSON.stringify(ingredients);
+  }
+  
+  // Add event listeners for existing inputs
+  document.querySelectorAll('.ingredient-input').forEach(input => {
+    input.addEventListener('input', updateIngredientsJson);
+  });
+  
+  // Add new ingredient
+  addIngredientBtn.addEventListener('click', function() {
+    const newIndex = document.querySelectorAll('.ingredient-input').length;
+    const newRow = document.createElement('div');
+    newRow.className = 'input-group mb-2';
+    newRow.innerHTML = `
+      <input type="text" class="form-control ingredient-input" data-index="${newIndex}" required>
+      <button type="button" class="btn btn-outline-danger remove-ingredient">Remove</button>
+    `;
+    
+    // Add listeners to new elements
+    const newInput = newRow.querySelector('.ingredient-input');
+    newInput.addEventListener('input', updateIngredientsJson);
+    
+    ingredientsList.appendChild(newRow);
+    updateIngredientsJson();
+  });
+  
+  // Remove ingredient (using event delegation)
+  ingredientsList.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-ingredient')) {
+      e.target.closest('.input-group').remove();
+      updateIngredientsJson();
+    }
+  });
+  
+  // Initial update
+  updateIngredientsJson();
+});
+</script>

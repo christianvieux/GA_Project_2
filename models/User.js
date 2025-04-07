@@ -14,7 +14,7 @@ const Model = mongoose.model(
     },
     profile_pic: {
       type: String,
-      default: "default.jpg",
+      default: "NO_IMAGE",
     },
     created_at: {
       type: Date,

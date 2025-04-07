@@ -1,0 +1,68 @@
+<!-- css -->
+<link rel="stylesheet" href="/css/recipes.css">
+<!-- pages/recipes.ejs -->
+<h1>Recipes</h1>
+
+<!-- Search Bar and Filters -->
+<div class="mb-3">
+    <form action="/recipes" method="GET">
+        <!-- Search by title or category -->
+        <input type="text" name="search" class="form-control mb-2" placeholder="Search by title or category" value="<%= searchQuery || '' %>">
+        
+        <!-- Filter by Category -->
+        <select name="category" class="form-select mb-2">
+            <option value="">All Categories</option>
+            <option value="Breakfast" <%= categoryFilter === 'Breakfast' ? 'selected' : '' %>>Breakfast</option>
+            <option value="Lunch" <%= categoryFilter === 'Lunch' ? 'selected' : '' %>>Lunch</option>
+            <option value="Dinner" <%= categoryFilter === 'Dinner' ? 'selected' : '' %>>Dinner</option>
+            <option value="Dessert" <%= categoryFilter === 'Dessert' ? 'selected' : '' %>>Dessert</option>
+            <option value="Snack" <%= categoryFilter === 'Snack' ? 'selected' : '' %>>Snack</option>
+            <option value="Other" <%= categoryFilter === 'Other' ? 'selected' : '' %>>Other</option>
+        </select>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+    </form>
+</div>
+
+<!-- Recipe Cards Grid -->
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <% recipes.forEach(recipe => { %>
+            <%- include('../partials/recipe-card.ejs', {recipe, user: user}) %>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+<!-- Pagination -->
+<% if (totalPages > 1) { %>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center d-flex align-items-center my-2">
+          
+          <!-- Previous Button -->
+          <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
+            <a class="page-link" href="<%= page > 1 ? `/recipes?page=${Number(page) - 1}${searchQuery ? `&search=${searchQuery}` : ''}` : '#' %>" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+
+          <!-- Page Numbers -->
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <li class="page-item <%= Number(page) === i ? 'active' : '' %>">
+                <a class="page-link" href="/recipes?page=<%= i %><%= searchQuery ? `&search=${searchQuery}` : "" %>"><%= i %></a>
+            </li>
+          <% } %>
+
+          <!-- Next Button -->
+          <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
+            <a class="page-link" href="<%= page < totalPages ? `/recipes?page=${Number(page) + 1}${searchQuery ? `&search=${searchQuery}` : ''}` : '#' %>" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+
+        </ul>
+    </nav>
+<% } %>

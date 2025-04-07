@@ -25,7 +25,7 @@ const RecipeSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: "default-recipe.jpg",
+      default: "NO_IMAGE",
     },
     category: {
       type: String,

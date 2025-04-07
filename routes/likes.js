@@ -3,7 +3,7 @@ const router = express.Router({ mergeParams: true }); // Allows the router to in
 const likeController = require("../controllers/likeController");
 const auth = require("../middleware/auth");
 
-router.post("/:id/like", auth, likeController.likeRecipe);
-router.post("/:id/unlike", auth, likeController.unlikeRecipe);
+router.post("/like", auth, likeController.likeRecipe);
+router.post("/unlike", auth, likeController.unlikeRecipe);
 
 module.exports = router;

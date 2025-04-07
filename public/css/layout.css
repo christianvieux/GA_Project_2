@@ -1,0 +1,11 @@
+body {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    /* background-color: red; */
+    height: 100vh;
+    
+}
+
+main {
+    flex-grow: 1; /* Takes the remaining space */
+}

@@ -1,0 +1,4 @@
+input, .form-select {
+    width: max-content !important;
+    display: inline !important;
+}

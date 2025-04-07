@@ -12,13 +12,13 @@ router.get("/ping", (req, res) => {
 // View user profile
 router.get("/:id", userController.getUser);
 
-// Edit user profile (GET form)
-router.get("/:id/edit", auth, userController.editUserForm);
+// // Edit user profile (GET form)
+// router.get("/:id/edit", auth, userController.editUserForm);
 
-// Update user profile
-router.put("/:id", auth, validate.updateUser, userController.updateUser);
+// // Update user profile
+// router.put("/:id", auth, validate.updateUser, userController.updateUser);
 
-// Delete user account
-router.delete("/:id", auth, userController.deleteUser);
+// // Delete user account
+// router.delete("/:id", auth, userController.deleteUser);
 
 module.exports = router;
