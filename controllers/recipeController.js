@@ -63,20 +63,33 @@ exports.getRecipeById = async (req, res) => {
 };
 
 exports.getNewRecipeForm = (req, res) => {
-  res.render("recipes/new"); // TODO: still missing the create method for CRUD
+  res.render("layout.ejs", { currentPage: "pages/new-recipe.ejs", recipe: {} });
 };
 
 exports.createRecipe = async (req, res) => {
   try {
-    const { title, ingredients, instructions } = req.body;
+    const { title, category, description, cook_time, ingredientsJson, instructions, image } = req.body;
+    
+    // Parse ingredients from JSON string
+    let ingredients = [];
+    try {
+      ingredients = JSON.parse(ingredientsJson || '[]');
+    } catch (e) {
+      console.error('Error parsing ingredients JSON:', e);
+    }
+
     const newRecipe = new Recipe({
       title,
-      ingredients,
+      category,
+      description,
+      cook_time,
+      ingredients: Array.isArray(ingredients) ? ingredients : [ingredients].filter(Boolean),
       instructions,
-      user: req.user._id,
+      image,
+      author: req.session.user.id
     });
     await newRecipe.save();
-    res.redirect("/recipes"); // TODO: Right now it isn't functional. Need to finish this
+    res.redirect(`/recipes/${newRecipe._id}`);
   } catch (error) {
     res.status(400).send("Error creating recipe");
   }
