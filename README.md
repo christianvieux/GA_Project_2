@@ -6,7 +6,7 @@ This is a Recipe CRUD (Create, Read, Update, Delete) web application built as my
 
 ## Live App 🌐
 
-Visit the live application [here.](http://44.203.74.69:3002/home)
+Visit the live application [here.](http://44.203.74.69:3008/home)
 
 ## Features
 
