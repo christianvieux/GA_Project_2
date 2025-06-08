@@ -2,40 +2,49 @@
 
 ## Description
 
-This is a Recipe CRUD (Create, Read, Update, Delete) web application built as part of my software engineering bootcamp project submission. The app allows users to share their recipes by adding, viewing, editing, and deleting them.
+This is a Recipe CRUD (Create, Read, Update, Delete) web application built as my **Project 2** submission for the **General Assembly** Software Engineering Immersive bootcamp. The app allows users to share their recipes by adding, viewing, editing, and deleting them. Built with the MERN stack (MongoDB, Express.js, React, Node.js), this project demonstrates full-stack development skills and RESTful API implementation learned during the bootcamp.
 
-## Project Status
+## Live App 🌐
 
-This project is a work in progress. The **Create** route is currently missing, and I plan to revisit it in the future. At this stage, the app is functional for viewing, updating, and deleting recipes. However, I am submitting this version for the purpose of completing my bootcamp assignments and moving forward with the curriculum.
+Visit the live application [here.](http://44.203.74.69:3008/home)
 
 ## Features
 
-- **Create**: Users can add recipes (to be added in future updates).
-- **Read**: View recipes shared by others.
-- **Update**: Edit existing recipes.
-- **Delete**: Remove recipes from the list.
-- **Comment**: Authorized users can add comment on recipes.
+- **User Authentication**: Register and login to manage your recipes
+- **Create**: Add new recipes with title, description, ingredients, instructions, and images
+- **Read**: Browse and search through recipes shared by the community
+- **Update**: Edit your own recipes
+- **Delete**: Remove your recipes from the collection
+- **Comments**: Leave comments on recipes
+- **Likes**: Show appreciation for recipes by liking them
+- **Search & Filter**: Find recipes by title, description, or category
+- **Responsive Design**: Works on both desktop and mobile devices
 
 
 ## Technologies Used
 
-- **HTML** & **CSS** (for basic page structure and styling)
-- **Bootstrap** (for responsive components)
-- **Node.js** (for backend functionality, if applicable)
-- **Express.js** (if applicable for routing)
-- **MongoDB** (if applicable for database)
-
-## Future Improvements
-
-- Implement the **Create** route functionality so users can add new recipes.
-- Add user authentication to allow for personalized recipe management.
-- Improve UI/UX for a more seamless experience.
+- **Frontend**: 
+  - HTML, CSS, JavaScript
+  - Bootstrap for responsive design
+  - EJS for templating
+- **Backend**: 
+  - Node.js
+  - Express.js for routing and middleware
+  - MongoDB for database
+  - Mongoose for ODM
+- **Authentication**:
+  - bcrypt for password hashing
+  - express-session for session management
+- **Other Tools**:
+  - method-override for HTTP method override
+  - express-validator for input validation
+  - morgan for HTTP request logging
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/christianvieux/GA_Project_2.git
+   git clone https://github.com/christianvieux/GA_Project_2_Recipe
    ```
 
 2. Install dependencies:
@@ -48,7 +57,7 @@ This project is a work in progress. The **Create** route is currently missing, a
    npm start
    ```
 
-4. Visit `http://localhost:3000` in your browser.
+4. Visit `http://localhost:3000` in your browser. If it doesn't work check the console or the port 3000 might be already in use.
 
 ## .env Variables
 
@@ -63,7 +72,7 @@ Make sure to create a ```.env``` file in the root directory and set the followin
     SESSION_SECRET="<your-session-secret>"
 ```
 
-## Acknowledgements
+## Future Improvements
 
-- I've used **Bootstrap** for providing responsive UI components.
-- This app was built as part of the Software Engineering Bootcamp.
+- Improve UI/UX more.
+- Add more content.

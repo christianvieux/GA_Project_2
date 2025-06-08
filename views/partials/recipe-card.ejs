@@ -1,11 +1,10 @@
 <!-- partials/recipe-card.ejs -->
 
-<div class="col">
-    <div class="card shadow-sm rounded-3 border-0" style="height: 400px; transition: transform 0.3s;">
+    <div class="p-2 shadow-sm rounded-3 border-0" style="height: 400px; transition: transform 0.3s;">
         <!-- Recipe Image -->
         <img src="<%= recipe.image %>" class="card-img-top rounded-top" style="aspect-ratio: 1 / 1; height: 200px; object-fit: cover;" alt="<%= recipe.title %>">
         
-        <div class="card-body d-flex flex-column">
+        <div class=" d-flex flex-column">
             <!-- Recipe Title -->
             <h5 class="card-title fw-bold text-dark"><%= recipe.title %></h5>
             
@@ -26,16 +25,15 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                         <!-- Link to View Recipe -->
-                        <a href="/recipes/<%= recipe._id %>" class="btn btn-sm btn-outline-primary rounded-pill px-3">View</a>
+                        <a href="/recipes/<%= recipe._id %>" class="me-2 btn btn-sm btn-outline-primary rounded-pill px-3">View</a>
                         
                         <!-- Link to Edit Recipe (only if the user is the author) -->
                         <% if (recipe.author.toString() === user?.id.toString()) { %>
-                            <a href="/recipes/<%= recipe._id %>/edit" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Edit</a>
+                            <a href="/recipes/<%= recipe._id %>/edit" class="me-2 btn btn-sm btn-outline-secondary rounded-pill px-3">Edit</a>
                         <% } %>
                     </div>
-                    <small class="text-body-secondary"><%= recipe.createdAt.toLocaleString() %></small> <!-- Recipe creation time -->
+                    <small class="text-body-secondary"><%= recipe.createdAt.toLocaleDateString() %></small> <!-- Recipe creation date -->
                 </div>
             </div>
         </div>
     </div>
-</div>

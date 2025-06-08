@@ -3,6 +3,18 @@
 <!-- pages/recipes.ejs -->
 <h1>Recipes</h1>
 
+<!-- create new recipe -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <% if (user) { %>
+    <a href="/recipes/new" class="btn btn-primary rounded-pill px-4">Create Recipe</a>
+  <% } else { %>
+    <div class="alert alert-info" role="alert">
+      <i class="bi bi-info-circle"></i>
+      Please <a href="/auth/login" class="alert-link">login</a> to create your own recipes!
+    </div>
+  <% } %>
+</div>
+
 <!-- Search Bar and Filters -->
 <div class="mb-3">
     <form action="/recipes" method="GET">
